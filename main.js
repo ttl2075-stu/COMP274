@@ -114,6 +114,62 @@ function drawTriangle(x1, y1, x2, y2, x3, y3, color = '#ff33ff') {
   glEnd();
 }
 
+function drawDiamond(x, y, width, height, color = '#ff33ff') {
+  glColor3f(hex2rgb(color)[0], hex2rgb(color)[1], hex2rgb(color)[2]);
+  glBegin(GL_TRIANGLE_FAN);
+  glVertex2f(x, y + height / 2); // Đỉnh trên
+  glVertex2f(x + width / 2, y); // Đỉnh phải
+  glVertex2f(x, y - height / 2); //đỉnh dưới
+  glVertex2f(x - width / 2, y); //Đỉnh trái
+  glEnd();
+}
+
+function drawParallelogram(x, y, width, height, skew, color = '#ff33ff') {
+  glColor3f(hex2rgb(color)[0], hex2rgb(color)[1], hex2rgb(color)[2]);
+  glBegin(GL_QUADS);
+  glVertex2f(x + skew, y);
+  glVertex2f(x + skew + width, y);
+  glVertex2f(x + width, y - height);
+  glVertex2f(x, y - height);
+  glEnd();
+}
+
+function drawTrapezoid(x, y, topBase, bottomBase, height, offset = 0, color = '#ff33ff') {
+  glColor3f(hex2rgb(color)[0], hex2rgb(color)[1], hex2rgb(color)[2]);
+  glBegin(GL_QUADS);
+  glVertex2f(x - topBase / 2, y); // Đỉnh trên, bên trái
+  glVertex2f(x + topBase / 2, y); // Đỉnh trên, bên phải
+  glVertex2f(x + bottomBase / 2 + offset, y - height); // Đỉnh dưới, bên phải
+  glVertex2f(x - bottomBase / 2 + offset, y - height); // Đỉnh dưới, bên trái
+  glEnd();
+}
+
+function drawEllipse(x, y, radiusX, radiusY, color = '#ff33ff') {
+  glPushMatrix();
+  glTranslatef(x, y, 0);
+  glScalef(radiusX, radiusY, 1); // Scale theo 2 trục
+  drawCircle(0, 0, 1, color); // Vẽ hình tròn đơn vị.
+  glScalef(1 / radiusX, 1 / radiusY, 1); // Reset scale
+  glPopMatrix();
+}
+
+function drawRegularPolygon(x, y, sides, radius, color = '#ff0000', startAngle = Math.PI / 2) {
+  if (sides < 3) {
+    return; // Ít nhất phải là tam giác
+  }
+  glColor3f(hex2rgb(color)[0], hex2rgb(color)[1], hex2rgb(color)[2]);
+  glBegin(GL_POLYGON); // Hoặc GL_TRIANGLE_FAN nếu muốn tâm là 1 đỉnh
+  let angleIncrement = (2 * Math.PI) / sides;
+  let angle = startAngle;
+  for (let i = 0; i < sides; i++) {
+    let curX = x + radius * Math.cos(angle);
+    let curY = y + radius * Math.sin(angle);
+    glVertex2f(curX, curY);
+    angle += angleIncrement;
+  }
+  glEnd();
+}
+
 function drawSun(x, y, r, color = '#f7db02', rays = 12, rayLength = r * 1.5, rayThickness = 2) {
   glColor3f(hex2rgb(color)[0], hex2rgb(color)[1], hex2rgb(color)[2]);
   // Vẽ mặt trời chính
@@ -185,9 +241,9 @@ function drawStar(x, y, outerRadius, color = '#f7db02') {
   glEnd();
 }
 
-function drawVietNamFlag(x, y, width, height = width*(2/3)) {
+function drawVietNamFlag(x, y, width, height = width * (2 / 3)) {
   // Vẽ cờ
   drawRetagle(x, y, width, height, '#ff0000');
   // Vẽ sao
-  drawStar(x + width * 0.5, y - height * 0.5, width * (1/5), '#ffff00');
+  drawStar(x + width * 0.5, y - height * 0.5, width * (1 / 5), '#ffff00');
 }

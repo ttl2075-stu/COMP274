@@ -52,6 +52,56 @@ Tại vị trí x, y là tâm hình tròn và hình tròn có bán kính là r, 
 
 Hàm vẽ hình tam giác, với lần lượt (x1, y1), (x2, y2), (x3, y3) là toạ độ 3 điểm của một tam giác
 
+## Hàm vẽ hình thoi
+
+    drawDiamond(x, y, width, height, color = '#ff33ff')
+
+Hàm vẽ hình mặt trời với tham số truyền vào:
+
+- x, y: Toạ độ tâm hình thoi (điểm giao nhau giữa 2 đường chéo)
+- width, height: Độ dài 2 đường chéo
+
+## Hàm vẽ hình bình hành
+
+    drawParallelogram(x, y, width, height, skew, color = '#ff33ff')
+
+Tham số truyền vào:
+
+- skew: Khoảng cách chéo nhau giữa 2 đường trên và dưới. skew > 0 sẽ nghiêng hình về phía bên phải
+- x, y: Toạ độ bắt đầu vẽ của hình bình hành (Điểm đầu tiên của hình bình hành xuất phát từ toạ độ x, y + skew)
+- width: Độ dài của 2 cạnh trên, dưới
+- height: Độ cao của 2 cạnh trên dưới
+
+## Hàm vẽ hình thang
+
+    drawTrapezoid(x, y, topBase, bottomBase, height, offset = 0, color = '#ff33ff')
+
+Tham só truyền vào:
+
+- x, y: Toạ độ bắt đầu vẽ là trung điểm của cạnh trên
+- topBase, bottomBase: Độ dài của cạnh trên và cạnh dưới
+- height: Chiều cao của cạnh trên đến cạnh dưới
+- offset: Dịch chuyển cạnh bên dưới về phía bên phải (nếu > 0). _(Mặc định là 0, tức là sẽ thành hình thang cân)_
+
+## Hàm vẽ hình Ellipse
+
+    drawEllipse(x, y, radiusX, radiusY, color = '#ff33ff')
+
+Tham số truyền vào:
+
+- x, y: Toạ độ tâm của của hình
+- radiusX, radiusY: Bán kính toạ độ X, Y _(nếu 2 cái này bằng nhau sẽ thành hình tròn)_
+
+## Hàm vẽ đa giác đều:
+
+    drawRegularPolygon(x, y, sides, radius, color = '#ff0000', startAngle = Math.PI / 2)
+
+Tham số truyền vào:
+
+- x, y: Tâm của đa giác đều
+- sides: Số cạnh của đa giác đều
+- radius: Bán kính đường tròn ngoại tiếp đa giác đếu _(Phạm vi của hình sẽ nằm trong bán kính hình tròn này => Tác độ đến độ dài của các cạnh)_
+
 ## Hàm vẽ mặt trời
 
     drawSun(x, y, r, color = '#f7db02', rays = 12, rayLength = r * 1.5, rayThickness = 2)
