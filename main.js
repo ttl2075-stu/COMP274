@@ -114,15 +114,12 @@ function drawTriangle(x1, y1, x2, y2, x3, y3, color = '#ff33ff') {
   glEnd();
 }
 
-function drawSun(x, y, r, color = '#f7db02') {
+function drawSun(x, y, r, color = '#f7db02', rays = 12, rayLength = r * 1.5, rayThickness = 2) {
   glColor3f(hex2rgb(color)[0], hex2rgb(color)[1], hex2rgb(color)[2]);
   // Vẽ mặt trời chính
   drawCircle(x, y, r, color);
   // Vẽ các tia nắng
-  let rays = 12; // Số lượng
-  let rayLength = r * 1.5; // Đọ dài
-  let rayThickness = 2; // Độ dày
-  drawSunWithRays(x, y, r, 0, color);
+  drawSunWithRays(x, y, r, 0, color, rays, rayLength, rayThickness);
 }
 
 function drawSunWithRays(x, y, r, angle, color = '#f7db02', rays = 12, rayLength = r * 1.5, rayThickness = 2) {
