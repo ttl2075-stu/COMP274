@@ -37,26 +37,26 @@ function drawGrid() {
   // Vẽ đường dọc
   for (let x = mleft; x <= mright; x += gridSpacing) {
     glBegin(GL_LINES);
-    glVertex2f(x, -250);
-    glVertex2f(x, 250);
+    glVertex2f(x, mbottom);
+    glVertex2f(x, mtop);
     glEnd();
   }
 
   // Vẽ đường ngang
-  for (let y = -250; y <= 250; y += gridSpacing) {
+  for (let y = mbottom; y <= mtop; y += gridSpacing) {
     glBegin(GL_LINES);
-    glVertex2f(-300, y);
-    glVertex2f(300, y);
+    glVertex2f(mleft, y);
+    glVertex2f(mright, y);
     glEnd();
   }
   // Vẽ trục tọa độ
   glColor3f(0.2, 0.2, 0.2); // Màu xám đậm hơn
   glLineWidth(2.0); // Nét vẽ dày
   glBegin(GL_LINES);
-  glVertex2f(-300, 0);
-  glVertex2f(300, 0); // Trục x
-  glVertex2f(0, -250);
-  glVertex2f(0, 250); // Trục y
+  glVertex2f(mleft, 0);
+  glVertex2f(mright, 0); // Trục x
+  glVertex2f(0, mbottom);
+  glVertex2f(0, mtop); // Trục y
   glEnd();
 }
 
