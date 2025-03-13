@@ -69,6 +69,78 @@ function hex2rgb(hex) {
   return [r / 255, g / 255, b / 255];
 }
 
+function draw() {
+  // Dòng chữ
+
+  // Đổ background
+  let angle = -2.5;
+  let isDay = true;
+  function animate() {
+    glClear(GL_COLOR_BUFFER_BIT);
+    let sunX = 200 * Math.cos(angle);
+    let sunY = 200 * Math.sin(angle);
+    if (isDay) {
+      fillBackgroundHex('#bad5f2');
+      drawSun(sunY, sunX, 30);
+    } else {
+      fillBackgroundHex('#4f5ca3');
+      drawMoon(sunY, sunX, 30);
+    }
+    if (angle >= 2) {
+      angle = -2.5; 
+      isDay = !isDay; 
+    }
+    angle += 0.005;
+
+    if (angle >= 4 * Math.PI) {
+      angle = 0; // Reset angle after two full rotations
+    }
+
+    // Vẽ đường bên dưới
+    drawRetagle(-300, -100, 600, 200, '#96b130');
+    // Vẽ kẻ đường
+    drawRetagle(-300, -200, 600, -25, '#788d25');
+    drawLine(-300, -175, 300, -175, '#292d0b');
+    drawLine(-300, -174, 300, -174, '#292d0b');
+    for (let i = -300; i < 300; i += 27) {
+      drawRetagle(i, -175, 25, 5, '#292d0b');
+    }
+
+    // Vẽ xe tăng
+    // Vẽ thân xe
+    drawRetagle(-195, -125, 95, 25 + 25 / 2, '#334716');
+    drawTriangle(-100, -125, -100, -150 - 25 / 2, -75, -150 - 25 / 2, '#334716');
+    drawVietNamFlag(-175, -125 + 50 * (2 / 3), 50);
+    // Vẽ bánh xe
+    drawRetagle(-175, -150, 75, 25, '#313131');
+    drawCircle(-175, -150 - 25 / 2, 12.5, '#313131');
+    drawCircle(-105, -150 - 25 / 2, 12.5, '#313131');
+    for (let i = -172; i < -105; i += 22) {
+      drawCircle(i, -150 - 25 / 2, 10, '#b3ad89');
+    }
+    // Vẽ nòng súng
+    drawRetagle(-125, -107, 50, 7, '#334716');
+    drawRetagle(-95, -103, 20, 15, '#334716');
+
+    // Vẽ máy bay
+    drawFly(-200, 100);
+    function drawFly(x, y) {
+      drawEllipse(x, y+30, 30, 10, '#6c7d54');
+      drawEllipse(x+10, y+30, 15, 6, '#ffffff');
+      drawRetagle(x-50, y+50, 60, 35, '#6c7d54');
+      drawLine(x-25, y+50, x-25, y+70, '#6c7d54');
+      drawLine(x-25-20, y+70, x-25+20, y+70, '#6c7d54');
+      drawRetagle(x-75,y+30, 30, 15, '#6c7d54');
+      drawParallelogram(x-80, y+15, -15, -30, 20, '#6c7d54');
+      drawVietNamFlag(x-95, y+55, 15);
+    }
+
+    requestAnimationFrame(animate);
+  }
+  animate();
+  drawGrid();
+}
+
 // Hàm vẽ
 function transform() {
   glClear(GL_COLOR_BUFFER_BIT); // Fills the scene with blue.
@@ -79,6 +151,19 @@ function fillBackground(r, g, b) {
   glClearColor(r, g, b, 1);
   glClear(GL_COLOR_BUFFER_BIT);
   drawGrid();
+}
+
+function fillBackgroundHex(hex) {
+  let [r, g, b] = hex2rgb(hex);
+  fillBackground(r, g, b);
+}
+
+function drawLine(x1, y1, x2, y2, color = '#ff33ff') {
+  glColor3f(hex2rgb(color)[0], hex2rgb(color)[1], hex2rgb(color)[2]);
+  glBegin(GL_LINES);
+  glVertex2f(x1, y1);
+  glVertex2f(x2, y2);
+  glEnd();
 }
 
 function drawRetagle(x, y, width, height, color = '#ff33ff') {
